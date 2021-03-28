@@ -1,65 +1,108 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from "../styles/Home.module.css";
+import BaseLayout from "../components/Layouts/BaseLayout/BaseLayout";
+import { useContext, useEffect, useState } from "react";
+import { Cards } from "../components/Layouts/Cards";
+import Card from "../components/Layouts/Cards/Card";
+import BaseContent from "../components/Layouts/BaseContent";
+import methodApi from "../Axios/methodApi";
+import dbConnect from "../util/dbConnect";
+import dbAccount from "../models/account";
+import { AuthContext } from "../ContextAPI/Auth-context";
 
-export default function Home() {
+export async function getStaticProps(context) {
+  dbConnect();
+  const db = await dbAccount.find({}).exec();
+  const kq = JSON.parse(JSON.stringify(db));
+  return {
+    props: { kq }, // will be passed to the page component as props
+  };
+}
+
+
+export default function Home({ kq }) {
+  const [arrTag, setArrTag] = useState([]);
+  const [arrId, setArrId] = useState([]);
+  const [newFeed, setNewFeed] = useState([]);
+  
+  const context = useContext(AuthContext);
+
+  const fetchData = async () => {
+    methodApi
+      .get("/getTag/listNews")
+      .then(async (res) => {
+        setArrId(res.arr);
+        setArrTag(res.arrTag);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getNewFeed = async () => {
+    methodApi.get("/getTag/newsFeed").then((res) => {
+      setNewFeed(res.arr);
+    });
+  };
+  const getEmail = async () => {
+    methodApi
+      .get("/auth/session")
+      .then((res) => {
+        if (res.user) {
+          kq.map((item) => {
+            if (item.email === res.user.email) {
+              context.login(
+                item._id,
+                item.role,
+                item.name,
+                item.avatar
+              );
+            }
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getEmail();
+    getNewFeed();
+    fetchData();
+  }, []);
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+    <BaseLayout title="HOME">
+      <div className={styles.container}>
+        <section className={styles.block}>
+          <section className={styles.blockContent}>
+            <div className={styles.one}>
+              <Cards cls="h1_c3" loaitin="all">
+                {newFeed.length > 0 &&
+                  newFeed.map((item, idx) => (
+                    <Card
+                      cls="card_big"
+                      id={item.idTag}
+                      tag={item.tag}
+                      key={idx}
+                    ></Card>
+                  ))}
+              </Cards>
+            </div>
+            <div className={styles.two}>
+              <BaseContent>
+                {arrTag.length > 0 &&
+                  arrTag.map((item, idx) => (
+                    <Cards
+                      cls="h2_c2"
+                      loaitin={item.tag}
+                      key={idx}
+                      arr={arrId}
+                    />
+                  ))}
+              </BaseContent>
+            </div>
+          </section>
+        </section>
+      </div>
+    </BaseLayout>
+  );
 }

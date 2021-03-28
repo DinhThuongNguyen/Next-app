@@ -1,0 +1,30 @@
+.formImage {
+  width: 100%;
+  height: 270px;
+  padding: .375rem .75rem;
+  display: flex;
+  flex-direction: row;
+  &__input  {
+    width: 30%;
+  }
+  &__showIMG  {
+    width: 70%;
+    height: 240px;
+    &__anh {
+      width: 200px;
+      height: 200px;
+      padding: 5px;
+      border-radius: 1px solid black;
+      background-color: #dadada;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

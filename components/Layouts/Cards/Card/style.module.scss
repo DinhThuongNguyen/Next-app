@@ -1,0 +1,83 @@
+.card_big {
+  height: 350px;
+}
+.card_small {
+  height: 300px;
+  background-color: bisque;
+
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-family: 'Andika New Basic';
+  & a {
+    max-width: 100%;
+    // height: 100%;
+    color: white;
+    transition: all 1s;
+    transform: scale(1);
+
+    & span {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      bottom: 5px;
+      background-color: #27262661;
+      opacity: 1;
+    }
+
+    & img {
+      transition: all 0.2s;
+      transform: scale(1);
+      
+    }
+    
+  }
+
+  & a::before {
+    background-color: #4a4a4aab;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: all 0.5s;
+    z-index: 2;
+  }
+  &:hover img {
+    transform: scale(1.1);
+  }
+  &:hover a::before {
+    opacity: 1;
+  }
+  & h5 {
+    position: absolute;
+    vertical-align: middle;
+    opacity: 0;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #7ee40d;
+  }
+  &:hover h5 {
+    opacity: 1;
+  }
+  &:hover span {
+    opacity: 0;
+  }
+  &:hover a {
+    color: #2b2727;
+  }
+}
