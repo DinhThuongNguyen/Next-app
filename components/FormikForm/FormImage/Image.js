@@ -11,7 +11,6 @@ const Image = (props) => {
   const avatarPickerRef = useRef();
   const [previewUrl, setPreviewUrl] = useState(field.value);
   const [files, setFile] = useState();
-  const header = { "Content-type": "application/json" };
 
   useEffect(() => {
     if (!files) {

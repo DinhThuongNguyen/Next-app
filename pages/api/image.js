@@ -8,11 +8,11 @@ const TYPE_IMAGE = {
   "image/jpg": "jpg",
 };
 
-const fileUpLoad = multer({
+const fileUpLoad = multer({ 
   limits: 5000000,
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "./public/Images"); 
+      cb(null, "/public/Images"); 
     },
     filename: (req, file, cb) => {
       const temp = TYPE_IMAGE[file.mimetype];
@@ -29,7 +29,6 @@ const fileUpLoad = multer({
 const imageUpload = nc();
 imageUpload.use(fileUpLoad.single("image")).post(async (req, res) => {
   const {method} = req;
-  console.log(method);
   if(method !== "POST"){
     return res.status(404).json({ message: "Request HTTP Method Incorrect." });
   }
@@ -39,8 +38,7 @@ imageUpload.use(fileUpLoad.single("image")).post(async (req, res) => {
     }
 
     const image = req.file;
-    console.log(image);
-    res.status(200).json({ path: `Images/${image.filename}` });
+    return res.status(200).json({ path: `Images/${image.filename}` });
   } catch (error) {
     console.log({ error });
     res.status(422).json({ message: "upload failed" });
