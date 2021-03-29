@@ -1,7 +1,10 @@
 import axiosClient from "./axiosClient";
 
-const headerNormal = {"Content-type": "application/json"};
-const headerFile = {'Content-type': 'multipart/form-data'}
+const headerNormal = { "Content-type": "application/json" };
+const headerFile = {
+  "Content-type": "multipart/form-data",
+  "Accept": "application/json",
+};
 
 const methodApi = {
   getAccount: (params) => {
@@ -9,56 +12,56 @@ const methodApi = {
     //const url = "/account";
     return axiosClient({
       method: "get",
-      url: url
+      url: url,
     });
   },
 
   get: (url) => {
-    return axiosClient.get(url); 
+    return axiosClient.get(url);
   },
   getById: (url, data) => {
     return axiosClient({
       method: "get",
-      data: data
-    })
-  },
-  post:(url, data) => {
-    return axiosClient({
-      method: "post",
-      url: url,
       data: data,
-      headers: headerNormal
     });
   },
-  postFile:(url, data) => {
+  post: (url, data) => {
     return axiosClient({
       method: "post",
       url: url,
       data: data,
-      headers: headerFile
-    })
+      headers: headerNormal,
+    });
   },
-  patch:(url, data) => {
+  postFile: (url, data) => {
+    return axiosClient({
+      method: "post",
+      url: url,
+      data: data,
+      headers: headerFile,
+    });
+  },
+  patch: (url, data) => {
     return axiosClient({
       method: "patch",
       url: url,
       data: data,
-      header: headerNormal
+      header: headerNormal,
     });
   },
-  deleteOne:(url) => {
+  deleteOne: (url) => {
     return axiosClient({
       method: "delete",
       url: url,
-    })
+    });
   },
-  deleteTwo:(url, data) => {
+  deleteTwo: (url, data) => {
     return axiosClient({
       method: "delete",
       url: url,
-      data: data
-    })
-  }
-}
+      data: data,
+    });
+  },
+};
 
 export default methodApi;

@@ -1,6 +1,7 @@
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const nc = require("next-connect");
+import formidable from "formidable";
 
 const TYPE_IMAGE = {
   "image/png": "png",
@@ -8,11 +9,11 @@ const TYPE_IMAGE = {
   "image/jpg": "jpg",
 };
 
-const fileUpLoad = multer({ 
+const fileUpLoad = multer({
   limits: 5000000,
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "./"); 
+      cb(null, "./");
     },
     filename: (req, file, cb) => {
       const temp = TYPE_IMAGE[file.mimetype];
@@ -26,24 +27,36 @@ const fileUpLoad = multer({
   },
 });
 
-const imageUpload = nc();
-imageUpload.use(fileUpLoad.single("image")).post(async (req, res) => {
-  const {method} = req;
-  if(method !== "POST"){
-    return res.status(404).json({ message: "Request HTTP Method Incorrect." });
-  }
-  try {
-    if(!req.file){
-      return res.status(404).json({message : "khong co file anh"})
-    }
+// const imageUpload = nc();
+// imageUpload.use(fileUpLoad.single("image")).post(async (req, res) => {
+//   const {method} = req;
+//   if(method !== "POST"){
+//     return res.status(404).json({ message: "Request HTTP Method Incorrect." });
+//   }
+//   try {
+//     if(!req.file){
+//       return res.status(404).json({message : "khong co file anh"})
+//     }
 
-    const image = req.file;
-    return res.status(200).json({ path: `Images/${image.filename}` });
-  } catch (error) {
-    console.log({ error });
-    res.status(422).json({ message: "upload failed" });
+//     const image = req.file;
+//     return res.status(200).json({ path: `Images/${image.filename}` });
+//   } catch (error) {
+//     console.log({ error });
+//     res.status(422).json({ message: "upload failed" });
+//   }
+// });
+const imageUpload = async (req, res) => {
+  const { method } = req;
+  if (method === "POST") {
+    const form = new formidable.IncomingForm();
+    form.uploadDir = "./";
+    form.keepExtensions = true;
+    form.parse(req, (err, fields, files) => {
+      console.log(files);
+    });
   }
-});
+  res.send("not post")
+};
 
 export default imageUpload;
 
