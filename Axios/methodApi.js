@@ -1,5 +1,8 @@
 import axiosClient from "./axiosClient";
 
+const headerNormal = {"Content-type": "application/json"};
+const headerFile = {'Content-type': 'multipart/form-data'}
+
 const methodApi = {
   getAccount: (params) => {
     const url = `/account/${params}`;
@@ -20,13 +23,27 @@ const methodApi = {
     })
   },
   post:(url, data) => {
-    return axiosClient.post(url, data);
+    return axiosClient({
+      method: "post",
+      url: url,
+      data: data,
+      headers: headerNormal
+    });
+  },
+  postFile:(url, data) => {
+    return axiosClient({
+      method: "post",
+      url: url,
+      data: data,
+      headers: headerFile
+    })
   },
   patch:(url, data) => {
     return axiosClient({
       method: "patch",
       url: url,
       data: data,
+      header: headerNormal
     });
   },
   deleteOne:(url) => {

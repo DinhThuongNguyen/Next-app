@@ -36,7 +36,7 @@ const Image = (props) => {
         const formData = new FormData();
         formData.append("image", pickFile);
         axios
-          .post("/image", formData)
+          .postFile("/image", formData)
           .then((res) => {
             form.setFieldValue(name, res.path);
           })
