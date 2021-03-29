@@ -49,7 +49,7 @@ const imageUpload = async (req, res) => {
   const { method } = req;
   if (method === "POST") {
     const form = new formidable.IncomingForm();
-    form.uploadDir = "./";
+    form.uploadDir = "./Images";
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => {
       console.log(files);
