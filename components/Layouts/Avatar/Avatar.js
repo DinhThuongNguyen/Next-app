@@ -20,7 +20,7 @@ const Avatar = (props) => {
       <div className={css.avatar__avt}>
         {avatar && (
           <Image
-            src={`${avatar.includes("http") ? avatar : "/" + avatar}`}
+            src={`${avatar.includes("https") ? avatar : "/" + avatar}`}
             width="50"
             height="50"
             alt="anh dai dien"
