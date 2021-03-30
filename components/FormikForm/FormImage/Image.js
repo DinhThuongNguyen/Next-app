@@ -58,7 +58,7 @@ const Image = (props) => {
             id={name}
             style={{ display: "none" }}
             type={type}
-            accept="image/*"
+            accept=".jpg, .png, .jpeg"
             ref={avatarPickerRef}
             onChange={valueImage}
           />
