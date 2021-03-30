@@ -9,25 +9,25 @@ const TYPE_IMAGE = {
   "image/jpg": "jpg",
 };
 
-//   const fileUpLoad = multer({
-//   limits: 5000000,
-//   storage: multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, `../Images/`);
-//     },
-//     filename: (req, file, cb) => {
-//       const temp = TYPE_IMAGE[file.mimetype];
-//       cb(null, uuidv4() + "." + temp);
-//     },
-//   }),
-//   fileFilter: (req, file, cb) => {
-//     const isValid = !!TYPE_IMAGE[file.mimetype];
-//     let error = isValid ? null : new Error("Invalid type image");
-//     cb(error, isValid);
-//   },
-// });
+  const fileUpLoad = multer({
+  limits: 5000000,
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      // cb(null, `../Images/`);
+      cb(null, false);
+    },
+    filename: (req, file, cb) => {
+      const temp = TYPE_IMAGE[file.mimetype];
+      cb(null, uuidv4() + "." + temp);
+    },
+  }),
+  fileFilter: (req, file, cb) => {
+    const isValid = !!TYPE_IMAGE[file.mimetype];
+    let error = isValid ? null : new Error("Invalid type image");
+    cb(error, isValid);
+  },
+});
 
-const fileUpLoad = multer({dest: "Images"});
 
 const imageUpload = nc();
 imageUpload.use(fileUpLoad.single("image")).post(async (req, res) => {
@@ -39,9 +39,9 @@ imageUpload.use(fileUpLoad.single("image")).post(async (req, res) => {
     if(!req.file){
       return res.status(404).json({message : "khong co file anh"})
     }
-
+    console.log(req.file);
     const image = req.file;
-    return res.status(200).json({ path: `Images/${image.filename}` });
+    return res.status(200).json({ path: "`Images/${image.filename}`" });
   } catch (error) {
     console.log({ error });
     res.status(422).json({ message: "upload failed" });
