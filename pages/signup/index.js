@@ -66,15 +66,16 @@ const index = () => {
       genre: values.genre,
       avatar: values.avatar,
     };
-    axios
-      .post("/account/signup", dataSignup)
-      .then(async(res) => {
-        await context.login(res.accountId, res.role, res.name, res.avatar);
-        await route.push("/");
-      })
-      .catch((err) => {
-        console.log({ err });
-      });
+    console.log(values);
+    // axios
+    //   .post("/account/signup", dataSignup)
+    //   .then(async(res) => {
+    //     await context.login(res.accountId, res.role, res.name, res.avatar);
+    //     await route.push("/");
+    //   })
+    //   .catch((err) => {
+    //     console.log({ err });
+    //   });
   };
 
   return (

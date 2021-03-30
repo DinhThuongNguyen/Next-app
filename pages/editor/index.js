@@ -403,7 +403,7 @@ function Example_editor() {
     const tagFigure = document.createElement("figure");
     const text = document.createTextNode(formImage.mota);
     tagFigcaption.appendChild(text);
-    const url = `/${urlImage}`;
+    const url = urlImage;
     tagImg.setAttribute("src", url);
     tagImg.setAttribute("width", formImage.width);
     tagImg.setAttribute("height", formImage.height);
@@ -835,7 +835,7 @@ function Example_editor() {
                                                 className={css.imgDesktop__show}
                                               >
                                                 <Image
-                                                  src={`/${urlImage}`}
+                                                  src={urlImage.includes("https") ? urlImage : `/${urlImage}`}
                                                   alt="anh desktop"
                                                   layout="fill"
                                                 />

@@ -16,7 +16,8 @@ module.exports = {
       '3.bp.blogspot.com',
       '4.bp.blogspot.com',
       'lh4.ggpht.com',
-      '2.bp.blogspot.com'
+      '2.bp.blogspot.com',
+      "res.cloudinary.com"
     ],
   },
   // async headers() {
