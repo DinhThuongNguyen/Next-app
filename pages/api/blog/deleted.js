@@ -13,13 +13,8 @@ deleted
   .use(CheckAuth)
   .use(CheckAdmin)
   .delete(async (req, res) => {
-    // const { method } = req;
-    // if (method !== "delete") {
-    //   return res
-    //     .status(500)
-    //     .json({ message: "Request HTTP Method Incorrect." });
-    // }
     const { idDelete, nhan } = req.body;
+    console.log(idDelete);
     if (!idDelete) {
       return res.status(404).json({ message: "Error delete" });
     }
