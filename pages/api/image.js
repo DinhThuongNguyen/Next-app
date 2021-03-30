@@ -27,7 +27,7 @@ const TYPE_IMAGE = {
 //   },
 // });
 
-const fileUpLoad = multer({dest: "./Images"});
+const fileUpLoad = multer({dest: "/Images"});
 
 const imageUpload = nc();
 imageUpload.use(fileUpLoad.single("image")).post(async (req, res) => {
