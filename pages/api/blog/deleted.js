@@ -14,7 +14,6 @@ deleted
   .use(CheckAdmin)
   .delete(async (req, res) => {
     const { idDelete, nhan } = req.body;
-    console.log(idDelete);
     if (!idDelete) {
       return res.status(404).json({ message: "Error delete" });
     }
