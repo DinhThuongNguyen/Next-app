@@ -12,12 +12,6 @@ updateBlog
   .use(CheckAuth)
   .use(CheckAdmin)
   .patch(async (req, res) => {
-    // const { method } = req;
-    // if (method !== "patch") {
-    //   return res
-    //     .status(500)
-    //     .json({ message: "Request HTTP Method Incorrect." });
-    // }
 
     const id = req.query.idUpdate;
     const { title, description, content, tag } = req.body;
@@ -63,7 +57,6 @@ updateBlog
           await item.save();
         }
       } catch (error) {
-        console.log(error);
         return res.status(404).json({ message: "loi tag err" });
       }
     });
@@ -72,14 +65,11 @@ updateBlog
       dataBlog.title = title;
       dataBlog.description = description;
       dataBlog.content = content;
-      dataBlog.tag = tag
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/đ/g, "d")
-        .replace(/Đ/g, "D");
+      dataBlog.tag = tag.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
 
       await dataBlog.save();
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ message: "khong the update" });
     }
 

@@ -11,7 +11,7 @@ const deleted = nc();
 
 deleted
   .use(CheckAuth)
-  .use(checkAdmin)
+  .use(CheckAdmin)
   .delete(async (req, res) => {
     // const { method } = req;
     // if (method !== "delete") {

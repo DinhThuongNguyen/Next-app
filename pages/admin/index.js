@@ -21,10 +21,10 @@ const index = () => {
   }, []);
 
   const deleteDataBlog = (id, tag) => {
-    const dl = JSON.stringify({
+    const dl = {
       idDelete: id,
       nhan: tag
-    });
+    };
     Axios.deleteTwo(`/blog/deleted`, dl)
       .then(res => {
         setArr(res.result)

@@ -189,12 +189,12 @@ function Example_editor() {
 
   const updateBlog = () => {
     const editor = document.getElementById("editor");
-    const formData = JSON.stringify({
+    const formData = {
       title: valueContent.tieuDe,
       description: valueContent.trichDan,
       tag: valueContent.nhanBaiViet,
       content: editor.innerHTML,
-    });
+    };
     Axios.patch(`/blog/updateBlog/${auth.idUpdate}`, formData)
       .then((res) => {
         auth.update(false, null);

@@ -30,12 +30,6 @@ postBlog
   .use(CheckAuth)
   .use(CheckAdmin)
   .post(async (req, res) => {
-    // const { method } = req;
-    // if (method !== "POST") {
-    //   return res
-    //     .status(500)
-    //     .json({ message: "Request HTTP Method Incorrect." });
-    // }
 
     await validateBody(req, res); 
 
@@ -52,7 +46,7 @@ postBlog
         description,
         content,
         tag: tag
-          .normalize("NFD")
+          .normalize("NFC")
           .replace(/[\u0300-\u036f]/g, "")
           .replace(/đ/g, "d")
           .replace(/Đ/g, "D"),
