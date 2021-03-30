@@ -38,7 +38,7 @@ const methodApi = {
       method: "post",
       url: url,
       data: data,
-      headers: headerFile,
+      headers: headerNormal,
     });
   },
   patch: (url, data) => {
