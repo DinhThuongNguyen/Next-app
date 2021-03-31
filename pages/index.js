@@ -69,7 +69,8 @@ export default function Home({ kq }) {
 
   useEffect(() => {
     const flag = localStorage.getItem("flagData");
-    flag && getEmail();
+    // flag && 
+    getEmail();
     getNewFeed();
     fetchData();
   }, []);
