@@ -42,8 +42,6 @@ export default function Home({ kq }) {
     });
   };
   const getEmail = async () => {
-    const flag = localStorage.getItem("flagData");
-    if(flag) {
       methodApi
       .get("/auth/session")
       .then((res) => {
@@ -64,11 +62,12 @@ export default function Home({ kq }) {
       .catch((err) => {
         console.log(err);
       });
-    }
+    
   };
 
   useEffect(() => {
-    getEmail();
+    const flag = localStorage.getItem("flagData");
+    flag && getEmail();
     getNewFeed();
     fetchData();
   }, []);
