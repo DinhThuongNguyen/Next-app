@@ -47,7 +47,6 @@ export default function Home({ kq }) {
       .then((res) => {
         if (res.user) {
           kq.map((item) => {
-            console.log(item.email);
             if (item.email === res.user.email) {
               context.login(
                 item._id,
@@ -68,8 +67,6 @@ export default function Home({ kq }) {
   };
 
   useEffect(() => {
-    const flag = localStorage.getItem("flagData");
-    // flag && 
     getEmail();
     getNewFeed();
     fetchData();
