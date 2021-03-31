@@ -45,9 +45,9 @@ export default function Home({ kq }) {
       methodApi
       .get("/auth/session")
       .then((res) => {
-        console.log(res);
         if (res.user) {
           kq.map((item) => {
+            console.log(item.email);
             if (item.email === res.user.email) {
               context.login(
                 item._id,
@@ -57,8 +57,9 @@ export default function Home({ kq }) {
               );
             }
           });
+          localStorage.removeItem("flagData");
         }
-        localStorage.removeItem("flagData")
+        
       })
       .catch((err) => {
         console.log(err);
