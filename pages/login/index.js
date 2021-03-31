@@ -51,7 +51,7 @@ const index = () => {
   };
 
   const loginWithGoogle_ = () => {
-    localStorage.setItem("flagData", "yes")
+    // localStorage.setItem("flagData", "yes");
     signIn("google", {
       callbackUrl: `${process.env.NEXTAUTH_URL}api/auth/callback/google`,
     });
