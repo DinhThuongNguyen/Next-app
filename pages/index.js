@@ -45,7 +45,7 @@ export default function Home({ kq }) {
       methodApi
       .get("/auth/session")
       .then((res) => {
-        console.log({res});
+        console.log(res);
         if (res.user) {
           kq.map((item) => {
             if (item.email === res.user.email) {
@@ -67,8 +67,8 @@ export default function Home({ kq }) {
   };
 
   useEffect(() => {
-    // const flag = localStorage.getItem("flagData");
-    // flag && 
+    const flag = localStorage.getItem("flagData");
+    flag && 
     getEmail();
     getNewFeed();
     fetchData();

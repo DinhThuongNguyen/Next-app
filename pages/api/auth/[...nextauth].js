@@ -5,7 +5,6 @@ import dbAccount from "../../../models/account";
 
 dbConnect();
 export default NextAuth({
-  // Configure one or more authentication providers
   providers: [
     Providers.Google({
       clientId: process.env.CLIENT_ID,
@@ -18,30 +17,31 @@ export default NextAuth({
   ],
   callbacks: {
     async signIn(user, account, profile) {
+      console.log(user);
       if(user.email){
         const kq = await dbAccount.findOne({email: user.email});
-        if(!kq) {
+        if(kq === null) {
           const newAccount = await dbAccount({
             email: user.email,
             name: user.name,
-            avatar: user.picture,
+            avatar: user.image,
             password: "no password",
             genre: "khong biet",
             phone: "0000000000000000",
             posts: []
-          })
+          });
           await newAccount.save();
         }
       }
       return true;
     },
-    async redirect(url, baseUrl) {
+    redirect(url, baseUrl) {
       return baseUrl
     },
-    async session(session, user) {
+    session(session, user) {
       return session;
     },
-    async jwt(token, user, account, profile, isNewUser) {
+    jwt(token, user, account, profile, isNewUser) {
       return token
     },
 },
