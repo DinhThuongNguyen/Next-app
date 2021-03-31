@@ -42,7 +42,9 @@ export default function Home({ kq }) {
     });
   };
   const getEmail = async () => {
-    methodApi
+    const flag = localStorage.getItem("flagData");
+    if(flag) {
+      methodApi
       .get("/auth/session")
       .then((res) => {
         if (res.user) {
@@ -57,10 +59,12 @@ export default function Home({ kq }) {
             }
           });
         }
+        localStorage.removeItem("flagData")
       })
       .catch((err) => {
         console.log(err);
       });
+    }
   };
 
   useEffect(() => {

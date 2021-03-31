@@ -52,8 +52,6 @@ const initialState = {
 const logoutAccount = async () => {
   try {
     const result1 = await Axios.get("/account/logout");
-    // const result2 = await Axios.get("/auth/logout");
-    // const result3 = await Axios.get("/authfb/logout");
     route.push("/login");
   } catch (error) {
     console.log({ error });
@@ -137,9 +135,6 @@ export const UseAuth = () => {
   
 
   useEffect(() => {
-    // Axios.get("/auth/session")
-    //   .then(res =>{console.log(res);})
-    //   .catch(err =>{})
     if (tokenExpirationDate) {
       const remainingTime = tokenExpirationDate - new Date().getTime();
       logoutTimer = setTimeout(logout, remainingTime);
