@@ -40,16 +40,18 @@ updateBlog
           const arr = [];
           arr.push(dataBlog.id);
           const newTag = await new dbTag({
-            tag: tag
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .replace(/đ/g, "d")
-              .replace(/Đ/g, "D"),
+            tag: tag,
             sobaiviet: 1,
             idTag: arr,
           });
           await newTag.save();
         } else if (dataBlog.tag !== tag) {
+          let total = item.sobaiviet;
+          total += 1;
+          await item.idTag.push(dataBlog.id);
+          item.sobaiviet = await total;
+          await item.save();
+        } else {
           let total = item.sobaiviet;
           total += 1;
           await item.idTag.push(dataBlog.id);
@@ -65,11 +67,10 @@ updateBlog
       dataBlog.title = title;
       dataBlog.description = description;
       dataBlog.content = content;
-      dataBlog.tag = tag.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
+      dataBlog.tag = tag;
 
       await dataBlog.save();
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ message: "khong the update" });
     }
 

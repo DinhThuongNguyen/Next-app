@@ -84,7 +84,7 @@ const baiviet = () => {
             </div>
             <div className={css.content__sameNews__card__notDesktop}>
             {
-              sameNew.length > 0 && sameNew.slice(0, 2).map((item, idx) => (
+              sameNew.length > 0 && sameNew.map((item, idx) => (
                 <Card cls="card_small" id={item} tag={category} key={idx}/>
               ))
             }

@@ -19,8 +19,7 @@ const getGenre = async (req, res) => {
         return res.status(404).json({message: "tag khong hop le"})
       };
       const arrTag = await item.idTag.reverse();
-      res.status(200).json({arrTag: arrTag.slice(parseInt(limit) * (parseInt(page) - 1), (parseInt(page) * parseInt(limit)))});
-      // res.end();
+      return res.status(200).json({arrTag: arrTag.slice(parseInt(limit) * (parseInt(page) - 1), (parseInt(page) * parseInt(limit)))});
     });
   
   } catch (error) {

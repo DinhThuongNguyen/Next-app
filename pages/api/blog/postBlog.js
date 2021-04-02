@@ -45,11 +45,7 @@ postBlog
         title,
         description,
         content,
-        tag: tag
-          .normalize("NFC")
-          .replace(/[\u0300-\u036f]/g, "")
-          .replace(/đ/g, "d")
-          .replace(/Đ/g, "D"),
+        tag: tag,
         images,
         date,
         creator: req.account.accountId,
@@ -89,11 +85,7 @@ postBlog
             const arr = [];
             arr.push(post.id);
             const newTag = await new dbTag({
-              tag: tag
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .replace(/đ/g, "d")
-                .replace(/Đ/g, "D"),
+              tag: tag,
               sobaiviet: 1,
               idTag: arr,
             });
@@ -106,7 +98,6 @@ postBlog
             await item.save();
           }
         } catch (error) {
-          console.log(error);
           return res.status(404).json({ message: "loi tag err" });
         }
       });

@@ -9,7 +9,6 @@ const viewupdate = async (req, res) => {
     return res.status(500).json({message: "Chỉ được dùng phương thức patch"});
   }
   const {idBlog} = req.body;
-  console.log(idBlog);
   if(!idBlog){
     return res.staus(404).json({message: "Khong co id"});
   }
