@@ -73,7 +73,7 @@ export default function Home({ kq }) {
   }, []);
 
   return (
-    <BaseLayout title="HOME">
+    <BaseLayout title="Võ Hoàng Yên" ogUrl={process.env.NEXTAUTH_URL}>
       <div className={styles.container}>
         <section className={styles.block}>
           <section className={styles.blockContent}>
