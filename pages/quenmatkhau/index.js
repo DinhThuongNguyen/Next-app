@@ -17,7 +17,7 @@ const index = () => {
   });
 
   const [value, setValue] = useState ({
-    email: "",
+    dataCheck: "",
     password: "",
     confirmPassword: "",
   });
@@ -31,8 +31,8 @@ const index = () => {
 
   const checkEmail = () => {
     const valueData = JSON.stringify({
-      email: value.email
-    })
+      dataCheck: value.dataCheck
+    });
     Axios.post("/account/checkAccount", valueData)
                     .then(res => {
                       if(res.message === "yes"){
@@ -44,7 +44,7 @@ const index = () => {
                       } else {
                         setTextError({
                           ...textError,
-                          email: "Email này không đúng, hãy nhập lại "
+                          email: "Tài khoản không đúng, hãy nhập lại "
                         });
                         setShowTaskPassword(false)
                       }
@@ -55,10 +55,10 @@ const index = () => {
 
   const changePassword = () => {
     if(value.password === value.confirmPassword){
-      const data = JSON.stringify({
-        email: value.email,
+      const data = {
+        dataCheck: value.dataCheck,
         password: value.password
-      })
+      };
       Axios.patch("/account/updatePassword", data)
       .then(async res => {
         await auth.login(res.accountId, res.role, res.name, res.avatar);
@@ -78,12 +78,6 @@ const index = () => {
       })
     }
   }
-  
-  
-
-  useEffect(() => {
-    console.log(auth);
-  }, []);
 
   return (
     <BaseLayout title="Quên mật khẩu">
@@ -92,12 +86,12 @@ const index = () => {
           <h3>Quên mật khẩu</h3>
           <div className={css.layout__content__form}>
             <div className={css.layout__content__form__item}>
-              <label htmlFor="email">Email</label>
-              <input type="text" name="email" value={value.email} disabled={showTaskPassword} onChange={handleChangeValue}/>
+              <label htmlFor="dataCheck">Email or name account</label>
+              <input type="text" name="dataCheck" value={value.dataCheck} disabled={showTaskPassword} onChange={handleChangeValue} placeholder="Nhập email hoặc tên tài khoản"/>
             </div>
             {textError.email.length > 0 && <p>{textError.email}</p>}
             {!showTaskPassword && <div className={css.layout__content__form__control}>
-                <button onClick={checkEmail}>Check email</button>
+                <button onClick={checkEmail}>Check account</button>
               </div>}
             {showTaskPassword && <div className={css.layout__content__form__item}>
               <label htmlFor="password">Mật khẩu</label>
@@ -118,4 +112,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default index; 

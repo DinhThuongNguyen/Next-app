@@ -44,6 +44,7 @@ const index = () => {
       })
       .catch(err => {
         console.log({err});
+        setTextError(err.response.data.message);
       })
     } catch (error) {
       console.log(error);
@@ -75,7 +76,7 @@ const index = () => {
                   <FormikControls
                     control="input"
                     type="text"
-                    label="Tên đăng nhập"
+                    label="Tài khoản"
                     name="email"
                     placeholder="Nhập email hoặc tên tài khoản"
                   />
