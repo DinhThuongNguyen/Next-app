@@ -24,7 +24,7 @@ const Card = (props) => {
         });
       }
     }
-    // setClass();
+    
     const setClass = () => {
       switch (cls) {
         case "card_big":
@@ -57,7 +57,7 @@ const Card = (props) => {
           <Link href={`/${tag}/${id}`}>
             <a>
               <Image
-                src={dulieu.image.includes("https") ? dulieu.image : `/${dulieu.image}`}
+                src={dulieu.image.includes(".com") ? dulieu.image : `/${dulieu.image}`}
                 alt="big"
                 layout="fill"
               />
