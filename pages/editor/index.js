@@ -150,7 +150,8 @@ function Example_editor() {
 
   function createPost() {
     const tagDiv = document.createElement("div");
-    tagDiv.setAttribute("class", "Content-blog");0
+    tagDiv.setAttribute("class", "Content-blog");
+    0;
 
     const editor = document.getElementById("editor");
     tagDiv.innerHTML = editor.innerHTML;
@@ -169,7 +170,11 @@ function Example_editor() {
         title: valueContent.tieuDe,
         description: valueContent.trichDan,
         content: tagDiv.outerHTML,
-        tag: valueContent.nhanBaiViet,
+        tag: valueContent.nhanBaiViet
+          .normalize("NFC")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D"),
         images: OBimages,
         date: newDate,
       });
@@ -192,7 +197,11 @@ function Example_editor() {
     const formData = {
       title: valueContent.tieuDe,
       description: valueContent.trichDan,
-      tag: valueContent.nhanBaiViet,
+      tag: valueContent.nhanBaiViet
+        .normalize("NFC")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "D"),
       content: editor.innerHTML,
     };
     Axios.patch(`/blog/updateBlog/${auth.idUpdate}`, formData)
@@ -835,7 +844,11 @@ function Example_editor() {
                                                 className={css.imgDesktop__show}
                                               >
                                                 <Image
-                                                  src={urlImage.includes("https") ? urlImage : `/${urlImage}`}
+                                                  src={
+                                                    urlImage.includes("https")
+                                                      ? urlImage
+                                                      : `/${urlImage}`
+                                                  }
                                                   alt="anh desktop"
                                                   layout="fill"
                                                 />
